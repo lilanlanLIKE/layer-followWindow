@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keyword" content="管理软件">
+    <meta name="description" content="管理软件">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>layer弹窗位置跟随点击元素</title>
+    <!--title图标-->
+    <link rel="stylesheet" href="layui/css/layui.css" type="text/css">
+    <link rel="stylesheet" href="css/new_style.css" type="text/css">
+
+
+</head>
+<body style="background: #f5f5f5;height:100%;">
+
+<div style="width: 100%; background: #fff;padding: 15px;" >
+
+    <div style="margin-top: 20px;">
+
+        <button class="btn btn-success" id="userInfo">用户信息</button>
+        <a href="#" id="userInfo_01">张学勇</a>
+        <a href="#" id="userInfo_02" class="pull-right">陈涛</a>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery-3.1.1.js" charset="UTF-8"></script>
+<script type="text/javascript" src="layer/layer.js" charset="UTF-8"></script>
+
+<script language="javascript">
+    $(function() {
+
+
+        window1();
+       window2();
+
+
+
+    });
+    function window1(){
+        $("#userInfo_01").click(function(){
+            var thisOffsetTop = $(this).offset().top ;
+            var thisOffsetLeft = $(this).offset().left ;
+            var windowOff =  windowOffset(thisOffsetTop,thisOffsetLeft,550,300);
+            var offsetTop = windowOff[0];
+            var offsetLeft = windowOff[1];
+            layer.open({
+                type: 2,
+                skin: 'layui-layer-molv',
+                title: false,
+                shade: 0.01,
+                shadeClose: true,
+                offset:[offsetTop,offsetLeft],
+                area: ['550px', '300px'],
+                content: 'userinfo.html' //iframe的url
+            });
+        });
+    }
+    function window2(){
+        $("#userInfo_02").click(function(){
+            var thisOffsetTop = $(this).offset().top ;
+            var thisOffsetLeft = $(this).offset().left ;
+           var windowOff =  windowOffset(thisOffsetTop,thisOffsetLeft,550,300);//传值点击元素的坐标，弹窗的宽高
+            var offsetTop = windowOff[0];
+            var offsetLeft = windowOff[1];
+            layer.open({
+                type: 2,
+                skin: 'layui-layer-molv',
+                title: false,
+                shade: 0.01,
+                shadeClose: true,
+                offset:[offsetTop,offsetLeft],
+                area: ['550px', '300px'],
+                content: 'userinfo.html' //iframe的url
+            });
+        });
+    }
+
+    //    计算弹窗偏移量
+    function windowOffset(a,b,w,h){
+        var windowHeight = $(window).height();
+        var windowWidth = $(window).width();
+        var thisOffsetRight = windowWidth - b;
+        var thisOffsetBottom = windowHeight - a;
+        var offsetTop = a + 30;
+        var offsetLeft = b + 20;
+        var result = new Array();
+        if(thisOffsetBottom < h){
+           offsetTop = a - h;
+        }
+        else{}
+         if(thisOffsetRight < w){
+            offsetLeft = b - w;
+        }
+        else{}
+        result[0] = offsetTop;
+        result[1] = offsetLeft;
+        return result;
+
+    }
+
+
+
+</script>
+
+
+</body>
+
+</html>
